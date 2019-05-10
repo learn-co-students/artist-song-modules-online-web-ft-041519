@@ -1,30 +1,25 @@
 require 'pry'
 
 class Artist
+  extend Memorable::ClassMethods
+  extend Findable
+  include Paramable
+  include Memorable::InstanceMethods
+  
   attr_accessor :name
   attr_reader :songs
 
   @@artists = []
 
   def initialize
-    @@artists << self
+    super               
     @songs = []
   end
 
-  def self.find_by_name(name)
-    @@artists.detect{|a| a.name == name}
-  end
+#super will tell that method to look up its behavior in the method of the same name in the parent, or super, class. A method that includes the super keyword will execute any code placed inside the super class' method of the same name, and then execute any code inside the child class' method.
 
   def self.all
     @@artists
-  end
-
-  def self.reset_all
-    self.all.clear
-  end
-
-  def self.count
-    self.all.count
   end
 
   def add_song(song)
@@ -36,7 +31,7 @@ class Artist
     songs.each { |song| add_song(song) }
   end
 
-  def to_param
-    name.downcase.gsub(' ', '-')
-  end
+  # def to_param
+  #   name.downcase.gsub(' ', '-')
+  # end
 end
