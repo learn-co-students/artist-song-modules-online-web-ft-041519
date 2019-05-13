@@ -1,11 +1,14 @@
 require 'pry'
 require_relative '../config/environment'
-class Song
+class Song < Artist
+
   extend Memorable::ClassMethods
+  extend Findable::ClassMethods
   include Memorable::InstanceMethods
   include Paramable
+
   attr_accessor :name
-  attr_reader :artists
+  attr_reader :artist
 
   @@songs = []
 
@@ -20,7 +23,8 @@ class Song
   def find_by_name(name)
     self.all.detect{|a| a.name == name}
   end
-  
+
+
   def artist=(artist)
     @artist = artist
   end
